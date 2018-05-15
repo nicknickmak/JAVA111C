@@ -66,7 +66,8 @@ public class LabFPartADriver {
 		System.out.println("getLessThanIterative should print \n[]\n" + dupTree.getAllEntriesLessThanIterative("A"));
 		System.out.println("getLessThanRecursive should print \n[]\n" + dupTree.getAllEntriesLessThanRecursive("A"));
 
-		
+		System.out.println("Height of Left Subtree: " + dupTree.calculateLeftHeight());
+		System.out.println("Height of Right Subtree: " + dupTree.calculateRightHeight());
 	}
 	
 }
