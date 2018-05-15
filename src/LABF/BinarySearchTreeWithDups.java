@@ -77,8 +77,19 @@ public class BinarySearchTreeWithDups<T extends Comparable<? super T>> extends B
 		BinaryNodeInterface<T> currentNode = getRootNode();
 		ArrayList<T> entryList = new ArrayList<T>();
 
-		// while(currentNode!=null) {
-		// }
+		boolean found = false;
+		
+		while (!found && (currentNode != null)) {
+			T currentEntry = currentNode.getData();
+
+			if (searchVal.equals(currentEntry)) {
+				entryList.add(currentEntry);
+				found = true;
+			} else if (searchVal.compareTo(currentEntry) < 0)
+				currentNode = currentNode.getLeftChild();
+			else
+				currentNode = currentNode.getRightChild();
+		}
 		
 		return entryList;
 	}
@@ -89,9 +100,24 @@ public class BinarySearchTreeWithDups<T extends Comparable<? super T>> extends B
 		// free to use it or delete it!
 		BinaryNodeInterface<T> rootNode = getRootNode();
 		ArrayList<T> entryList = new ArrayList<T>();
-		// getAllEntriesHelper(searchVal, rootNode, entryList);
+		getAllEntriesHelper(searchVal, rootNode, entryList);
 		
 		return entryList;
+	}
+
+	private void getAllEntriesHelper(T searchVal, BinaryNodeInterface<T> rootNode, ArrayList<T> entryList) {
+		if (rootNode != null) {
+			T currentData = rootNode.getData();
+			if (searchVal.equals(currentData)) {
+				entryList.add(currentData);
+				getAllEntriesHelper(searchVal, rootNode.getRightChild(), entryList);
+			} else if (searchVal.compareTo(currentData) > 0) {
+				getAllEntriesHelper(searchVal, rootNode.getLeftChild(), entryList);
+			} else {
+				getAllEntriesHelper(searchVal, rootNode.getRightChild(), entryList);
+			}
+		} 
+			
 	}
 
 	// ??? IMPLEMENT THIS METHOD
