@@ -119,30 +119,55 @@ public class BinarySearchTreeWithDups<T extends Comparable<? super T>> extends B
 
 	// ??? IMPLEMENT THIS METHOD
 	public ArrayList<T> getAllEntriesLessThanIterative(T searchVal) {
-		// this initial code is meant as a suggestion to get your started- feel
-		// free to use it or delete it!
+		
 		ArrayList<T> entryList = new ArrayList<T>();
 
-		// Hint: consider using a stack to mimic recursion!
-		// Stack<BinaryNodeInterface<T>> nodeStack = new
-		// Stack<BinaryNodeInterface<T>>();
-		// nodeStack.push(getRootNode());
+		Stack<BinaryNodeInterface<T>> nodeStack = new Stack<BinaryNodeInterface<T>>();
+		nodeStack.push(getRootNode());
 
-		// while(!nodeStack.isEmpty()) {
-		// }
+		while(!nodeStack.isEmpty()) {
+			BinaryNodeInterface<T> currentNode = nodeStack.pop();
+			if (currentNode.getData().compareTo(searchVal) < 0) {
+				entryList.add(currentNode.getData());
+				if (currentNode.hasRightChild()) {
+					nodeStack.push(currentNode.getRightChild());
+				}
+				if (currentNode.hasLeftChild()) {
+					nodeStack.push(currentNode.getLeftChild());
+				}
+			} else {
+				if (currentNode.hasLeftChild()) {
+					nodeStack.push(currentNode.getLeftChild());
+				}
+			}
+		}
 		
 		return entryList;
 	}
 
 	// ??? IMPLEMENT THIS METHOD
 	public ArrayList<T> getAllEntriesLessThanRecursive(T searchVal) {
-		// this initial code is meant as a suggestion to get your started- feel
-		// free to use it or delete it!
 		BinaryNodeInterface<T> rootNode = getRootNode();
 		ArrayList<T> entryList = new ArrayList<T>();
-		// getAllEntriesLessThanHelper(searchVal, rootNode, entryList);
+		getAllEntriesLessThanHelper(searchVal, rootNode, entryList);
 		
 		return entryList;
+	}
+
+	private void getAllEntriesLessThanHelper(T searchVal, BinaryNodeInterface<T> rootNode, ArrayList<T> entryList) {
+		if (rootNode.getData().compareTo(searchVal) < 0) {
+			if (rootNode.hasRightChild()) {
+				getAllEntriesLessThanHelper(searchVal, rootNode.getRightChild(), entryList);
+			}
+			entryList.add(0, rootNode.getData());
+			if (rootNode.hasLeftChild()) {
+				getAllEntriesLessThanHelper(searchVal, rootNode.getLeftChild(), entryList);
+			}
+		} else {
+			if (rootNode.hasLeftChild()) {
+				getAllEntriesLessThanHelper(searchVal, rootNode.getLeftChild(), entryList);
+			}
+		}
 	}
 
 
