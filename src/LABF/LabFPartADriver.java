@@ -1,7 +1,6 @@
 package LABF;
 
 
-
 public class LabFPartADriver {
 
 	public static void main(String[] args) {
