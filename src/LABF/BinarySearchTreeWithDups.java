@@ -171,5 +171,23 @@ public class BinarySearchTreeWithDups<T extends Comparable<? super T>> extends B
 	}
 
 
+	//Extra Credit
+	public int calculateLeftHeight() {
+		return calcHeightHelper(getRootNode().getLeftChild());
+	}
+	
+	public int calculateRightHeight() {
+		return calcHeightHelper(getRootNode().getRightChild());
+	}
 
+	private int calcHeightHelper(BinaryNodeInterface<T> rootNode) {
+		if (rootNode == null) {
+			return 0;
+		} else {
+			int leftHeight = calcHeightHelper(rootNode.getLeftChild());
+			int rightHeight = calcHeightHelper(rootNode.getLeftChild());
+			
+			return Math.max(leftHeight, rightHeight) + 1;
+		}
+	}
 }
